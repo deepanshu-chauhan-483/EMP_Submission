@@ -1,11 +1,13 @@
 # Event Management Platform
 
+## Live link:https://emp-submission-frontend.onrender.com
+
 ## Overview
 The Event Management Platform is a full-stack web application that allows users to create, manage, and attend events. The platform supports real-time updates using WebSockets, user authentication, and event interaction features.
 
 ## Features
 - User authentication (login/register) using JWT
-- Event creation, editing, and deletion
+- Event creation
 - Attendee management with real-time updates
 - Secure API with Express.js and MongoDB
 - Responsive UI built with React and Tailwind CSS
@@ -16,7 +18,7 @@ The Event Management Platform is a full-stack web application that allows users 
 - **Backend:** Node.js, Express.js, MongoDB
 - **Authentication:** JWT (JSON Web Token)
 - **Real-time Communication:** Socket.io
-- **Deployment:** Vercel (Frontend), Render/Railway (Backend)
+- **Deployment:** Render (Frontend), Render(Backend)
 
 ## Installation
 
@@ -82,8 +84,8 @@ Ensure you have the following installed:
 - `joinEvent` – Join a WebSocket room for event updates
 - `updateAttendees` – Receive real-time attendee updates
 
-- **Frontend:** Deploy on Vercel with `npm run build`
-- **Backend:** Deploy on Render or Railway with MongoDB connection
+- **Frontend:** Deployed on Render with `npm run build`
+- **Backend:** Deployed on Render with MongoDB connection
 
 
 ## License
