@@ -3,8 +3,9 @@ import Event from '../backend/models/Event.js';
 
 export const setupWebSocket = (server) => {
     const io = new Server(server, {
-        cors: { origin: "http://localhost:3000", credentials: true }
+        cors: { origin: "*", credentials: true }
     });
+    
 
     io.on('connection', (socket) => {
         console.log('New client is now connected');
