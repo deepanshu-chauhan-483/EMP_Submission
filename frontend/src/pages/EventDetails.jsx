@@ -3,7 +3,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+// Use environment variables for API and WebSocket URLs
+const API_BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000/api";
+const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || "http://localhost:5000";
+
+const socket = io(SOCKET_URL, {
+  withCredentials: true,
+});
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -14,7 +20,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/events/${id}`);
+        const { data } = await axios.get(`${API_BASE_URL}/events/${id}`);
         setEvent(data);
         socket.emit("joinEvent", id);
       } catch (error) {
@@ -40,7 +46,7 @@ const EventDetails = () => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.post(
-        `http://localhost:5000/api/events/${id}/attend`,
+        `${API_BASE_URL}/events/${id}/attend`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -49,7 +55,7 @@ const EventDetails = () => {
       setIsAttending(true);
     } catch (error) {
       console.error("Error attending event", error);
-      alert("Already attending !");
+      alert("Already attending!");
     }
   };
 
@@ -74,8 +80,12 @@ const EventDetails = () => {
         <p className="text-gray-600 mt-2">{event.description}</p>
 
         <div className="mt-4">
-          <p className="text-sm font-medium text-gray-700">Category: <span className="text-blue-600">{event.category}</span></p>
-          <p className="text-sm font-medium text-gray-700">Location: <span className="text-blue-600">{event.location}</span></p>
+          <p className="text-sm font-medium text-gray-700">
+            Category: <span className="text-blue-600">{event.category}</span>
+          </p>
+          <p className="text-sm font-medium text-gray-700">
+            Location: <span className="text-blue-600">{event.location}</span>
+          </p>
           <p className="text-sm font-medium text-gray-700">
             Date:{" "}
             <span className="text-blue-600">
